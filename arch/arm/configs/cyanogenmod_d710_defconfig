@@ -56,6 +56,9 @@ CONFIG_SYSVIPC_SYSCTL=y
 CONFIG_AUDIT=y
 CONFIG_HAVE_GENERIC_HARDIRQS=y
 
+#uksm kernel deduplication
+CONFIG_UKSM=y
+
 #
 # IRQ subsystem
 #
