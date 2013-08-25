@@ -377,7 +377,7 @@ struct cpu_usage_history {
 	unsigned int num_hist;
 };
 
-struct cpu_usage_history *ali_hotplg_history;
+struct cpu_usage_history *ali_hotplug_history;
 
 static inline cputime64_t get_cpu_idle_time_jiffy(unsigned int cpu,
 						  cputime64_t *wall)
@@ -914,7 +914,7 @@ static void debug_hotplug_check(int which, int rq_avg, int freq,
 
 static int check_up(void)
 {
-	int num_hist = ali_hotplg_history->num_hist;
+	int num_hist = ali_hotplug_history->num_hist;
 	struct cpu_usage *usage;
 	int freq, rq_avg;
 	int i;
@@ -944,7 +944,7 @@ static int check_up(void)
     if(num_hist == 0) num_hist = MAX_HOTPLUG_RATE;
 
 	for (i = num_hist - 1; i >= num_hist - up_rate; --i) {
-		usage = &ali_hotplg_history->usage[i];
+		usage = &ali_hotplug_history->usage[i];
 
 		freq = usage->freq;
 		rq_avg =  usage->rq_avg;
@@ -963,7 +963,7 @@ static int check_up(void)
 	if (avg_freq >= up_freq && avg_rq > up_rq) {
 		printk(KERN_ERR "[HOTPLUG IN] %s %d>=%d && %d>%d\n",
 			__func__, min_freq, up_freq, min_rq_avg, up_rq);
-		//ali_hotplg_history->num_hist = 0;
+		//ali_hotplug_history->num_hist = 0;
 		return 1;
 	}
 	return 0;
@@ -971,7 +971,7 @@ static int check_up(void)
 
 static int check_down(void)
 {
-	int num_hist = ali_hotplg_history->num_hist;
+	int num_hist = ali_hotplug_history->num_hist;
 	struct cpu_usage *usage;
 	int freq, rq_avg;
 	int i;
@@ -1002,7 +1002,7 @@ static int check_down(void)
     if(num_hist == 0) num_hist = MAX_HOTPLUG_RATE; //make it circular -gm
 
 	for (i = num_hist - 1; i >= num_hist - down_rate; --i) {
-		usage = &ali_hotplg_history->usage[i];
+		usage = &ali_hotplug_history->usage[i];
 
 		freq = usage->freq;
 		rq_avg =  usage->rq_avg;
@@ -1021,7 +1021,7 @@ static int check_down(void)
 	if (avg_freq <= down_freq && avg_rq <= down_rq) {
 		printk(KERN_ERR "[HOTPLUG OUT] %s %d<=%d && %d<%d\n",
 			__func__, max_freq, down_freq, max_rq_avg, down_rq);
-		//ali_hotplg_history->num_hist = 0;
+		//ali_hotplug_history->num_hist = 0;
 		return 1;
 	}
 
@@ -1034,15 +1034,15 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 
 	struct cpufreq_policy *policy;
 	unsigned int j;
-	int num_hist = ali_hotplg_history->num_hist;
+	int num_hist = ali_hotplug_history->num_hist;
 	int max_hotplug_rate = MAX_HOTPLUG_RATE;
 	int up_threshold = dbs_tuners_ins.up_threshold;
 
 	policy = this_dbs_info->cur_policy;
 
-	ali_hotplg_history->usage[num_hist].freq = policy->cur;
-	ali_hotplg_history->usage[num_hist].rq_avg = get_nr_run_avg();
-	++ali_hotplg_history->num_hist;
+	ali_hotplug_history->usage[num_hist].freq = policy->cur;
+	ali_hotplug_history->usage[num_hist].rq_avg = get_nr_run_avg();
+	++ali_hotplug_history->num_hist;
 
 	/* Get Absolute Load - in terms of freq */
 	max_load_freq = 0;
@@ -1099,7 +1099,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 			continue;
 
 		load = 100 * (wall_time - idle_time) / wall_time;
-		ali_hotplg_history->usage[num_hist].load[j] = load;
+		ali_hotplug_history->usage[num_hist].load[j] = load;
 
 		freq_avg = __cpufreq_driver_getavg(policy, j);
 		if (freq_avg <= 0)
@@ -1118,8 +1118,8 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 		queue_work_on(this_dbs_info->cpu, ali_dvfs_workqueue,
 			      &this_dbs_info->down_work);
 	}
-	if (ali_hotplg_history->num_hist  == max_hotplug_rate)
-		ali_hotplg_history->num_hist = 0;
+	if (ali_hotplug_history->num_hist  == max_hotplug_rate)
+		ali_hotplug_history->num_hist = 0;
 
 	/* Check for frequency increase */
 	if (policy->cur < dbs_tuners_ins.freq_for_responsiveness) {
@@ -1310,7 +1310,7 @@ static int cpufreq_governor_dbs(struct cpufreq_policy *policy,
 
 		dbs_tuners_ins.max_freq = policy->max;
 		dbs_tuners_ins.min_freq = policy->min;
-		ali_hotplg_history->num_hist = 0;
+		ali_hotplug_history->num_hist = 0;
 		start_rq_work();
 
 		mutex_lock(&dbs_mutex);
@@ -1407,8 +1407,8 @@ static int __init cpufreq_gov_dbs_init(void)
 	if (ret)
 		return ret;
 
-	ali_hotplg_history = kzalloc(sizeof(struct cpu_usage_history), GFP_KERNEL);
-	if (!ali_hotplg_history) {
+	ali_hotplug_history = kzalloc(sizeof(struct cpu_usage_history), GFP_KERNEL);
+	if (!ali_hotplug_history) {
 		pr_err("%s cannot create hotplug history array\n", __func__);
 		ret = -ENOMEM;
 		goto err_hist;
@@ -1436,7 +1436,7 @@ static int __init cpufreq_gov_dbs_init(void)
 err_reg:
 	destroy_workqueue(ali_dvfs_workqueue);
 err_queue:
-	kfree(ali_hotplg_history);
+	kfree(ali_hotplug_history);
 err_hist:
 	kfree(rq_data);
 	return ret;
@@ -1446,7 +1446,7 @@ static void __exit cpufreq_gov_dbs_exit(void)
 {
 	cpufreq_unregister_governor(&cpufreq_gov_alicornq);
 	destroy_workqueue(ali_dvfs_workqueue);
-	kfree(ali_hotplg_history);
+	kfree(ali_hotplug_history);
 	kfree(rq_data);
 }
 
