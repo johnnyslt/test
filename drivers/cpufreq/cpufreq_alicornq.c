@@ -1,20 +1,16 @@
 /*
- *  drivers/cpufreq/cpufreq_pegasusq.c
+ *  drivers/cpufreq/cpufreq_alicornq.c
  *
- *  Copyright (C)  2011 Samsung Electronics co. ltd
- *    ByungChang Cha <bc.cha@samsung.com>
+ *  Based on pegasusq governor
  *
- *  Based on ondemand governor
- *  Copyright (C)  2001 Russell King
- *            (C)  2003 Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>.
- *                      Jun Nakajima <jun.nakajima@intel.com>
+ * Just a set of pegasusq tweaks by hakcenter
+ * Forked to alicornq by blasphemy
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
-/*
- *  drivers/cpufreq/cpufreq_pegasusq.c
+ /*  drivers/cpufreq/cpufreq_pegasusq.c
  *
  *  Copyright (C)  2011 Samsung Electronics co. ltd
  *    ByungChang Cha <bc.cha@samsung.com>
@@ -1450,8 +1446,8 @@ static void __exit cpufreq_gov_dbs_exit(void)
 	kfree(rq_data);
 }
 
-MODULE_AUTHOR("ByungChang Cha <bc.cha@samsung.com>");
-MODULE_DESCRIPTION("'cpufreq_pegasusq' - A dynamic cpufreq/cpuhotplug governor");
+MODULE_AUTHOR("zxo0oxz");
+MODULE_DESCRIPTION("'cpufreq_alicornq' - A dynamic cpufreq/cpuhotplug governor based on pegasusq");
 MODULE_LICENSE("GPL");
 
 #ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_ALICORNQ
