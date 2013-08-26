@@ -117,12 +117,6 @@ static void dyn_fsync_early_suspend(struct early_suspend *h)
 	mutex_lock(&fsync_mutex);
 	if (dyn_fsync_active) {
 		early_suspend_active = true;
-#if 1
-		/* flush all outstanding buffers */
-		wakeup_flusher_threads(0);
-		sync_filesystems(0);
-		sync_filesystems(1);
-#endif
 		dyn_fsync_force_flush();
 	}
 	mutex_unlock(&fsync_mutex);
