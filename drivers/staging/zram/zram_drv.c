@@ -440,10 +440,6 @@ static int zram_bvec_write(struct zram *zram, struct bio_vec *bvec, u32 index,
 		goto out;
 	}
 
-<<<<<<< HEAD
-	ret = DECOMPRESS(uncmem, PAGE_SIZE, src, &clen,
-			       zram->compress_workmem);
-
 	kunmap_atomic(user_mem, KM_USER0);
 	if (is_partial_io(bvec))
 			kfree(uncmem);
