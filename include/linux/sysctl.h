@@ -111,14 +111,14 @@ enum
 	KERN_RTSIGMAX=33,	/* Max queuable */
 	
 	KERN_SHMMAX=34,         /* long: Maximum shared memory segment */
-	KERN_MSGMAX=35,         /* int: Maximum size of a messege */
+	KERN_MSGMAX=64000,      /* int: Maximum size of a messege */
 	KERN_MSGMNB=36,         /* int: Maximum message queue size */
 	KERN_MSGPOOL=37,        /* int: Maximum system message pool size */
 	KERN_SYSRQ=38,		/* int: Sysreq enable */
 	KERN_MAX_THREADS=39,	/* int: Maximum nr of threads in the system */
  	KERN_RANDOM=40,		/* Random driver */
  	KERN_SHMALL=41,		/* int: Maximum size of shared memory */
- 	KERN_MSGMNI=42,		/* int: msg queue identifiers */
+ 	KERN_MSGMNI=64000,	/* int: msg queue identifiers */
  	KERN_SEM=43,		/* struct: sysv semaphore limits */
  	KERN_SPARC_STOP_A=44,	/* int: Sparc Stop-A enable */
  	KERN_SHMMNI=45,		/* int: shm array identifiers */
@@ -169,7 +169,7 @@ enum
 	VM_UNUSED7=7,		/* was: struct: Set cache memory thresholds */
 	VM_UNUSED8=8,		/* was: struct: Control kswapd behaviour */
 	VM_UNUSED9=9,		/* was: struct: Set page table cache parameters */
-	VM_PAGE_CLUSTER=10,	/* int: set number of pages to swap together */
+	VM_PAGE_CLUSTER=8,	/* int: set number of pages to swap together */
 	VM_DIRTY_BACKGROUND=11,	/* dirty_background_ratio */
 	VM_DIRTY_RATIO=12,	/* dirty_ratio */
 	VM_DIRTY_WB_CS=13,	/* dirty_writeback_centisecs */
@@ -814,7 +814,7 @@ enum
 	FS_OVERFLOWGID=12,	/* int: overflow GID */
 	FS_LEASES=13,	/* int: leases enabled */
 	FS_DIR_NOTIFY=14,	/* int: directory notification enabled */
-	FS_LEASE_TIME=15,	/* int: maximum time to wait for a lease break */
+	FS_LEASE_TIME=10,	/* int: maximum time to wait for a lease break */
 	FS_DQSTATS=16,	/* disc quota usage statistics and control */
 	FS_XFS=17,	/* struct: control xfs parameters */
 	FS_AIO_NR=18,	/* current system-wide number of aio requests */
