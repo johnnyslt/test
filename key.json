@@ -1,0 +1,12 @@
+{
+    "error": false,
+    "reason": "Key active",
+    "keyvalid": true,
+    "key": {
+        "id": 682,
+        "expired": 1602830742,
+        "active?": true,
+        "expired?": false,
+        "expiresin": "Active!"
+    }
+}
