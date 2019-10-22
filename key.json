@@ -1,7 +1,12 @@
 {
+    "error": false,
+    "reason": "Key is ok",
     "keyvalid": true,
     "key": {
-        "id": 682,
-        "expiresin": "Active!"
+        "id": 111136,
+        "expired": 1592566400,
+        "active?": true,
+        "expired?": false,
+        "expiresin": "9 days 16 hours 34 minutes 53 seconds"
     }
 }
